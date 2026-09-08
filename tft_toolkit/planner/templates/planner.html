@@ -1,0 +1,308 @@
+<title>Wilds Emblem Planner</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg: #F2F4F0; --surface: #FFFFFF; --surface-2: #E8ECE5; --ink: #1A1F1B; --muted: #5F6A61; --line: #D3DAD1;
+  --accent: #A67C0A; --accent-ink: #FFFFFF; --wisp: #3C6FA8; --chip: #EEF2EC; --shadow: 0 1px 2px rgba(20, 30, 22, 0.08);
+  --bronze: #9A5B2C; --silver: #6E7B88; --gold: #B8860B; --prismatic: #6F5BD1; --unique: #B85C2E; --off: #9AA39C;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111512; --surface: #181D19; --surface-2: #212824; --ink: #E6EBE5; --muted: #97A399; --line: #2B342D;
+    --accent: #E2B441; --accent-ink: #14170F; --wisp: #86B6EC; --chip: #222A25; --shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --bronze: #D08A55; --silver: #A9B6C3; --gold: #E6C15A; --prismatic: #B3A6F5; --unique: #E08A5A; --off: #6E7870;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111512; --surface: #181D19; --surface-2: #212824; --ink: #E6EBE5; --muted: #97A399; --line: #2B342D;
+  --accent: #E2B441; --accent-ink: #14170F; --wisp: #86B6EC; --chip: #222A25; --shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --bronze: #D08A55; --silver: #A9B6C3; --gold: #E6C15A; --prismatic: #B3A6F5; --unique: #E08A5A; --off: #6E7870;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif; font-size: 14px; line-height: 1.45; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 24px 20px 60px; }
+header { padding-bottom: 16px; border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: flex-end; }
+h1 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 34px; letter-spacing: -0.02em; margin: 0; line-height: 1.05; text-wrap: balance; }
+.sub { color: var(--muted); margin-top: 6px; max-width: 70ch; }
+.layout { display: grid; grid-template-columns: 360px 1fr; gap: 22px; margin-top: 20px; align-items: start; }
+@media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; box-shadow: var(--shadow); position: sticky; top: 12px; }
+@media (max-width: 900px) { .panel { position: static; } }
+h2 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 16px; margin: 0 0 8px; }
+h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 16px 0 6px; font-weight: 600; }
+.emblems { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.emb { display: flex; align-items: center; justify-content: space-between; gap: 6px; border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; background: var(--chip); }
+.emb.on { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.emb .n { font-weight: 600; font-size: 13px; }
+.emb .r { color: var(--muted); font-size: 11px; }
+.ctr { display: inline-flex; align-items: center; gap: 2px; }
+.ctr button { width: 22px; height: 22px; border-radius: 5px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; cursor: pointer; line-height: 1; }
+.ctr span { min-width: 16px; text-align: center; font-variant-numeric: tabular-nums; font-weight: 600; }
+.seg { display: inline-flex; flex-wrap: wrap; gap: 4px; }
+.seg button, .btn, select, input[type=text] { font: inherit; font-size: 13px; padding: 5px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+input[type=text] { cursor: text; width: 100%; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; padding: 9px 14px; width: 100%; margin-top: 16px; }
+button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--wisp); outline-offset: 2px; }
+label.inline { display: flex; align-items: center; gap: 8px; margin: 4px 0; color: var(--ink); }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip { display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 999px; background: var(--chip); border: 1px solid var(--line); font-size: 12px; white-space: nowrap; }
+.chip.cost1 { border-color: #8a8f8a; } .chip.cost2 { border-color: #3f9b5c; } .chip.cost3 { border-color: #3C6FA8; } .chip.cost4 { border-color: #9b59b6; } .chip.cost5 { border-color: var(--gold); border-width: 2px; }
+.chip.temp { border-style: dashed; color: var(--muted); }
+.chip .hold { color: var(--accent); font-weight: 600; }
+.chip.x { cursor: pointer; }
+.trait { display: inline-flex; align-items: center; gap: 6px; padding: 3px 8px; border-radius: 6px; font-size: 12px; border: 1px solid var(--line); background: var(--surface); }
+.trait i { width: 9px; height: 9px; border-radius: 2px; display: inline-block; transform: rotate(45deg); }
+.trait.bronze i { background: var(--bronze); } .trait.silver i { background: var(--silver); } .trait.gold i { background: var(--gold); } .trait.prismatic i { background: var(--prismatic); } .trait.unique i { background: var(--unique); } .trait.off i { background: var(--off); }
+.trait.off { color: var(--muted); border-style: dashed; }
+.trait b { font-variant-numeric: tabular-nums; }
+.results { display: grid; gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; box-shadow: var(--shadow); }
+.card header { border: 0; padding: 0 0 8px; }
+.score { font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 18px; }
+.meta { color: var(--muted); font-size: 12px; }
+.path { display: grid; grid-template-columns: 58px 1fr 70px; gap: 4px 10px; align-items: center; font-size: 13px; margin-top: 6px; }
+.path .lvl { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); }
+.path .cnt { color: var(--muted); font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; }
+.note { background: var(--surface); border-left: 3px solid var(--wisp); padding: 10px 14px; border-radius: 0 6px 6px 0; }
+.status { color: var(--muted); font-size: 12px; margin-top: 8px; min-height: 16px; }
+details summary { cursor: pointer; color: var(--muted); font-size: 12px; margin-top: 8px; }
+[hidden] { display: none !important; }
+</style>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Wilds Emblem Planner</h1>
+      <div class="sub">Pick the emblems you are holding. The planner searches every Set 18 board for the ones that turn those emblems into the most trait breakpoints, then shows how to get there level by level.</div>
+    </div>
+    <div class="meta" id="setinfo"></div>
+  </header>
+  <div class="layout">
+    <aside class="panel">
+      <h2>Your emblems</h2>
+      <div class="emblems" id="emblems"></div>
+      <h3>Board size (level)</h3>
+      <div class="seg" id="levelSeg"></div>
+      <h3>Goal</h3>
+      <div class="seg" id="objSeg"></div>
+      <h3>Roster</h3>
+      <label class="inline"><input type="checkbox" id="allow5" checked> allow 5-cost units</label>
+      <label class="inline"><input type="checkbox" id="khazix"> Kha'Zix has evolved (can carry a second trait)</label>
+      <h3>Must include</h3>
+      <input type="text" id="incInput" list="unitList" placeholder="type a unit and press Enter">
+      <div class="chips" id="incChips" style="margin-top:6px"></div>
+      <h3>Leave out</h3>
+      <input type="text" id="excInput" list="unitList" placeholder="type a unit and press Enter">
+      <div class="chips" id="excChips" style="margin-top:6px"></div>
+      <datalist id="unitList"></datalist>
+      <button class="btn primary" id="run">Find boards</button>
+      <div class="status" id="status"></div>
+    </aside>
+    <main>
+      <div id="results" class="results"></div>
+    </main>
+  </div>
+</div>
+<script id="data" type="application/json">__DATA__</script>
+<script>
+const DATA = JSON.parse(document.getElementById('data').textContent);
+const STYLE_POINTS = { bronze: 1, silver: 2, gold: 3, prismatic: 4, unique: 2 };
+const TIER_WEIGHT = { bronze: 1, silver: 2, gold: 3, prismatic: 4.5, unique: 1 };
+const EMBLEM_MULT = 2, EMBLEM_WASTED = 3, COST_PENALTY = 0.05, MAX_ITEMS = 3;
+const LEVEL_COST_CAP = { 2: 1, 3: 2, 4: 2, 5: 3, 6: 3, 7: 4, 8: 5, 9: 5, 10: 5, 11: 5, 12: 5 };
+const TRAITS = DATA.traits;
+const TRAIT_BY_NAME = Object.fromEntries(TRAITS.map(t => [t.name, t]));
+const UNITS = DATA.units;
+const EMBLEM_TRAITS = TRAITS.filter(t => t.emblem);
+const state = { emblems: {}, level: 8, objective: 'tiers', include: [], exclude: [] };
+const $ = s => document.querySelector(s);
+const h = (tag, attrs, ...kids) => { const el = document.createElement(tag); for (const [k, v] of Object.entries(attrs || {})) { if (k === 'class') el.className = v; else if (k.startsWith('on')) el.addEventListener(k.slice(2), v); else el.setAttribute(k, v); } for (const kid of kids.flat()) if (kid != null) el.append(kid.nodeType ? kid : document.createTextNode(String(kid))); return el; };
+function styleFor(trait, count) { let best = null; for (const bp of trait.breakpoints) if (count >= bp.min) best = bp.style; return best; }
+function nextBp(trait, count) { for (const bp of trait.breakpoints) if (bp.min > count) return bp; return null; }
+function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function buildCandidates(opts) {
+  const cands = [];
+  for (const u of UNITS) {
+    if ((u.cost > opts.maxCost) && !opts.include.includes(u.name)) continue;
+    if (opts.exclude.includes(u.name)) continue;
+    const base = {};
+    for (const t of u.traits) base[t] = (base[t] || 0) + 1;
+    for (const [t, b] of Object.entries(u.trait_bonus || {})) base[t] = (base[t] || 0) + b;
+    if (u.flex_origins && u.flex_origins.length) {
+      for (const origin of u.flex_origins) {
+        const counts = Object.assign({}, base); counts[origin] = (counts[origin] || 0) + (u.flex_counts_double ? 2 : 1);
+        cands.push({ key: u.name, name: u.name, cost: u.cost, slots: u.slots || 1, traits: [...u.traits, origin], counts, label: u.name + ' (' + origin + ')', luxOrigin: origin, evo: null });
+      }
+      continue;
+    }
+    cands.push({ key: u.name, name: u.name, cost: u.cost, slots: u.slots || 1, traits: [...u.traits], counts: base, label: u.name, luxOrigin: null, evo: null });
+    if (u.optional_traits && opts.khazix) for (const evo of u.optional_traits) { const counts = Object.assign({}, base); counts[evo] = (counts[evo] || 0) + 1; cands.push({ key: u.name, name: u.name, cost: u.cost, slots: u.slots || 1, traits: [...u.traits, evo], counts, label: u.name + ' (' + evo + ')', luxOrigin: null, evo }); }
+  }
+  return cands;
+}
+class Evaluator {
+  constructor(emblems, objective) { this.emblems = Object.fromEntries(Object.entries(emblems).filter(([k, v]) => v > 0)); this.objective = objective; }
+  countsFor(board) {
+    const counts = {};
+    for (const c of board) for (const [t, n] of Object.entries(c.counts)) counts[t] = (counts[t] || 0) + n;
+    for (const [t, k] of Object.entries(this.emblems)) { const holders = board.length - board.filter(c => c.traits.includes(t)).length; counts[t] = (counts[t] || 0) + Math.min(k, Math.max(holders, 0)); }
+    return counts;
+  }
+  activeLines(counts) {
+    const lines = []; let active = 0, points = 0, weighted = 0;
+    for (const t of TRAITS) {
+      const n = counts[t.name] || 0; if (n <= 0) continue;
+      const style = styleFor(t, n); const nb = nextBp(t, n);
+      lines.push({ name: t.name, count: n, style, nextMin: nb ? nb.min : null, nextStyle: nb ? nb.style : null, fromEmblems: this.emblems[t.name] || 0 });
+      if (style) { active += 1; points += STYLE_POINTS[style] || 1; let w = TIER_WEIGHT[style] || 1; if (t.name in this.emblems) w *= EMBLEM_MULT; weighted += w; }
+      else if (t.name in this.emblems) weighted -= EMBLEM_WASTED;
+    }
+    const ec = DATA.eclipse || {};
+    if (Object.keys(ec).length && Object.entries(ec).every(([k, v]) => (counts[k] || 0) >= v)) { lines.push({ name: 'Eclipse', count: 1, style: 'gold', nextMin: null, nextStyle: null, fromEmblems: 0 }); active += 1; points += STYLE_POINTS.gold; weighted += TIER_WEIGHT.gold; }
+    lines.sort((a, b) => (a.style === null) - (b.style === null) || (STYLE_POINTS[b.style] || 0) - (STYLE_POINTS[a.style] || 0) || b.count - a.count || a.name.localeCompare(b.name));
+    return { lines, active, points, weighted };
+  }
+  scoreParts(board) {
+    const counts = this.countsFor(board); const { lines, active, points, weighted } = this.activeLines(counts);
+    const cost = board.reduce((s, c) => s + c.cost, 0);
+    const emblemActive = lines.filter(l => l.style && l.name in this.emblems).length;
+    const score = this.objective === 'traits' ? active * 100 + emblemActive * 50 + weighted - cost * COST_PENALTY : weighted * 10 + active - cost * COST_PENALTY;
+    return { score, lines, active, points, cost };
+  }
+  score(board) { return this.scoreParts(board).score; }
+}
+function assignEmblems(board, emblems) {
+  const holders = Object.fromEntries(board.map(c => [c.key, []]));
+  const slots = []; for (const [t, n] of Object.entries(emblems).sort((a, b) => board.filter(c => !c.traits.includes(a[0])).length - board.filter(c => !c.traits.includes(b[0])).length)) for (let i = 0; i < n; i++) slots.push(t);
+  const go = i => { if (i === slots.length) return true; const t = slots[i]; for (const c of board) { if (c.traits.includes(t) || holders[c.key].includes(t) || holders[c.key].length >= MAX_ITEMS) continue; holders[c.key].push(t); if (go(i + 1)) return true; holders[c.key].pop(); } return false; };
+  const ok = go(0);
+  return { ok, holders: ok ? Object.fromEntries(Object.entries(holders).filter(([k, v]) => v.length)) : {} };
+}
+const slotsOf = board => board.reduce((s, c) => s + c.slots, 0);
+const keyOf = board => board.map(c => c.label).sort().join('|');
+function localSearch(ev, cands, opts, rng, locked) {
+  const byKey = {}; for (const c of cands) (byKey[c.key] = byKey[c.key] || []).push(c);
+  const free = cands.filter(c => !locked.has(c.key));
+  let board = []; const seen = new Set();
+  for (const k of locked) { const opts2 = byKey[k]; if (!opts2) continue; board.push(opts2[Math.floor(rng() * opts2.length)]); seen.add(k); }
+  const pool = free.slice(); for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(rng() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
+  for (const c of pool) { if (slotsOf(board) + c.slots > opts.level || seen.has(c.key)) continue; board.push(c); seen.add(c.key); if (slotsOf(board) >= opts.level) break; }
+  let best = ev.score(board), bestBoard = board.slice(), kicks = 0;
+  while (true) {
+    let current = best, move = null; const present = new Set(board.map(c => c.key));
+    for (let i = 0; i < board.length; i++) {
+      const out = board[i]; if (locked.has(out.key)) continue;
+      for (const inc of free) {
+        if (present.has(inc.key) && inc.key !== out.key) continue;
+        if (slotsOf(board) - out.slots + inc.slots > opts.level) continue;
+        const trial = board.slice(0, i).concat(board.slice(i + 1), [inc]); const s = ev.score(trial);
+        if (s > current + 1e-9) { current = s; move = trial; }
+      }
+    }
+    if (!move && slotsOf(board) < opts.level) for (const inc of free) { if (present.has(inc.key) || slotsOf(board) + inc.slots > opts.level) continue; const trial = board.concat([inc]); const s = ev.score(trial); if (s > current + 1e-9) { current = s; move = trial; } }
+    if (move) { board = move; best = current; bestBoard = board.slice(); continue; }
+    kicks += 1; if (kicks >= 3) break;
+    const swappable = board.map((c, i) => [c, i]).filter(([c]) => !locked.has(c.key)).map(([, i]) => i);
+    if (swappable.length < 2) break;
+    for (let n = 0; n < 2; n++) { const i = swappable[Math.floor(rng() * swappable.length)]; const present2 = new Set(board.map(c => c.key)); const choices = free.filter(c => !present2.has(c.key) && slotsOf(board) - board[i].slots + c.slots <= opts.level); if (choices.length) board[i] = choices[Math.floor(rng() * choices.length)]; }
+    best = ev.score(board);
+  }
+  return bestBoard;
+}
+function combos(arr, k) { const out = []; const rec = (start, cur) => { if (cur.length === k) { out.push(cur.slice()); return; } for (let i = start; i < arr.length; i++) { cur.push(arr[i]); rec(i + 1, cur); cur.pop(); } }; rec(0, []); return out; }
+function buildPath(ev, board, locked, cands) {
+  const steps = []; const finalSize = slotsOf(board); const finalKeys = new Set(board.map(c => c.key));
+  for (let size = 3; size < finalSize; size++) {
+    const cap = LEVEL_COST_CAP[size] || 5; const pool = board.filter(c => c.cost <= cap || locked.has(c.key));
+    let best = null, bestVal = null;
+    for (let k = Math.min(size, pool.length); k >= 1; k--) { for (const combo of combos(pool, k)) { if (slotsOf(combo) > size) continue; const p = ev.scoreParts(combo); const val = p.score * 1000 - p.cost; if (bestVal === null || val > bestVal) { bestVal = val; best = combo.slice(); } } if (best) break; }
+    best = best || []; const fillers = new Set(); const present = new Set(best.map(c => c.key));
+    while (slotsOf(best) < size) {
+      const options = cands.filter(c => c.cost <= cap && !present.has(c.key) && !finalKeys.has(c.key) && slotsOf(best) + c.slots <= size && !c.luxOrigin);
+      if (!options.length) break;
+      let pick = null, pickVal = null; for (const c of options) { const v = ev.score(best.concat([c])) * 1000 - c.cost; if (pickVal === null || v > pickVal) { pickVal = v; pick = c; } }
+      best.push(pick); fillers.add(pick.key); present.add(pick.key);
+    }
+    const p = ev.scoreParts(best);
+    steps.push({ size, units: best.slice().sort((a, b) => a.cost - b.cost || a.name.localeCompare(b.name)).map(c => ({ label: c.label, cost: c.cost, temp: fillers.has(c.key) })), active: p.active, points: p.points });
+  }
+  const p = ev.scoreParts(board);
+  steps.push({ size: finalSize, units: board.slice().sort((a, b) => a.cost - b.cost || a.name.localeCompare(b.name)).map(c => ({ label: c.label, cost: c.cost, temp: false })), active: p.active, points: p.points });
+  return steps;
+}
+function solve(emblems, opts) {
+  const cands = buildCandidates(opts); const locked = new Set(opts.include);
+  const ev = new Evaluator(emblems, opts.objective); const rng = mulberry32(opts.seed || 7);
+  const found = new Map();
+  for (let r = 0; r < opts.restarts; r++) {
+    const board = localSearch(ev, cands, opts, rng, locked); const key = keyOf(board); if (found.has(key)) continue;
+    const { ok, holders } = assignEmblems(board, ev.emblems); const p = ev.scoreParts(board);
+    found.set(key, { units: board.slice().sort((a, b) => a.cost - b.cost || a.name.localeCompare(b.name)), luxOrigin: (board.find(c => c.luxOrigin) || {}).luxOrigin || null, evo: (board.find(c => c.evo) || {}).evo || null, holders, lines: p.lines, active: p.active, points: p.points, cost: p.cost, score: ok ? p.score : p.score - 5000, feasible: ok });
+  }
+  const results = [...found.values()].sort((a, b) => b.score - a.score).slice(0, opts.topN);
+  for (const r of results) r.path = buildPath(ev, r.units, locked, cands);
+  return results;
+}
+function renderEmblems() {
+  $('#emblems').replaceChildren(...EMBLEM_TRAITS.map(t => {
+    const n = state.emblems[t.name] || 0;
+    return h('div', { class: 'emb' + (n ? ' on' : '') },
+      h('div', null, h('div', { class: 'n' }, t.name), h('div', { class: 'r' }, t.emblem.craftable ? t.emblem.recipe.join(' + ') : 'not craftable')),
+      h('div', { class: 'ctr' }, h('button', { 'aria-label': 'remove ' + t.name + ' emblem', onclick: () => { state.emblems[t.name] = Math.max(0, n - 1); renderEmblems(); } }, '−'), h('span', null, n), h('button', { 'aria-label': 'add ' + t.name + ' emblem', onclick: () => { state.emblems[t.name] = Math.min(4, n + 1); renderEmblems(); } }, '+')));
+  }));
+}
+function renderSegs() {
+  $('#levelSeg').replaceChildren(...[6, 7, 8, 9, 10].map(l => h('button', { 'aria-pressed': String(state.level === l), onclick: () => { state.level = l; renderSegs(); } }, String(l))));
+  $('#objSeg').replaceChildren(...[['tiers', 'Strongest breakpoints'], ['traits', 'Most active traits']].map(([id, label]) => h('button', { 'aria-pressed': String(state.objective === id), onclick: () => { state.objective = id; renderSegs(); } }, label)));
+}
+function renderLists() {
+  const mk = (list, id) => $(id).replaceChildren(...list.map(n => h('span', { class: 'chip x', role: 'button', tabindex: '0', title: 'remove', onclick: () => { list.splice(list.indexOf(n), 1); renderLists(); } }, n, ' ×')));
+  mk(state.include, '#incChips'); mk(state.exclude, '#excChips');
+}
+function bindInput(id, list) {
+  const el = $(id);
+  el.addEventListener('keydown', e => { if (e.key !== 'Enter') return; const v = el.value.trim(); const unit = UNITS.find(u => u.name.toLowerCase() === v.toLowerCase()); if (unit && !list.includes(unit.name)) { list.push(unit.name); renderLists(); } el.value = ''; });
+  el.addEventListener('change', () => { const v = el.value.trim(); const unit = UNITS.find(u => u.name.toLowerCase() === v.toLowerCase()); if (unit && !list.includes(unit.name)) { list.push(unit.name); renderLists(); el.value = ''; } });
+}
+const costChip = (label, cost, extra, temp) => h('span', { class: 'chip cost' + cost + (temp ? ' temp' : '') }, label, extra ? h('span', { class: 'hold' }, extra) : null, temp ? h('span', null, 'temp') : null);
+function traitTag(l) {
+  const cls = l.style || 'off';
+  const nxt = l.nextMin ? ' → ' + l.nextMin : '';
+  return h('span', { class: 'trait ' + cls, title: l.style ? l.style + ' at ' + l.count + (l.nextMin ? ', next breakpoint at ' + l.nextMin : '') : 'inactive, needs ' + l.nextMin }, h('i'), l.name, ' ', h('b', null, l.count + nxt), l.fromEmblems ? h('span', { class: 'hold' }, '+' + l.fromEmblems + ' emblem') : null);
+}
+function renderResults(results, emblems, ms) {
+  const box = $('#results'); box.replaceChildren();
+  const embLabel = Object.entries(emblems).filter(([, v]) => v).map(([k, v]) => v > 1 ? k + ' x' + v : k).join(', ') || 'no emblems';
+  box.append(h('div', { class: 'note' }, h('strong', null, embLabel), ' at level ' + state.level + ', ' + (state.objective === 'tiers' ? 'strongest breakpoints' : 'most active traits') + '. ' + results.length + ' boards in ' + ms + ' ms. Gold labels on a unit show which emblem it should hold; a unit cannot hold an emblem for a trait it already has.'));
+  results.forEach((r, i) => {
+    const card = h('div', { class: 'card' },
+      h('header', null, h('div', null, h('span', { class: 'score' }, '#' + (i + 1) + '  ' + r.active + ' traits active, ' + r.points + ' tier points'), h('div', { class: 'meta' }, r.cost + ' gold of units' + (r.luxOrigin ? ', Lux as ' + r.luxOrigin : '') + (r.evo ? ', Kha\'Zix evolved into ' + r.evo : '') + (r.feasible ? '' : ', not every emblem has a legal holder')))),
+      h('div', { class: 'chips' }, r.units.map(c => costChip(c.label, c.cost, (r.holders[c.key] || []).map(t => ' +' + t).join('')))),
+      h('h3', null, 'Traits'), h('div', { class: 'chips' }, r.lines.filter(l => l.style).map(traitTag)),
+      r.lines.some(l => !l.style) ? h('div', { class: 'chips', style: 'margin-top:5px' }, r.lines.filter(l => !l.style).map(traitTag)) : null,
+      h('details', null, h('summary', null, 'Show the level-by-level path'), h('div', { class: 'path' }, r.path.flatMap(s => [h('span', { class: 'lvl' }, 'lvl ' + s.size), h('div', { class: 'chips' }, s.units.map(u => costChip(u.label, u.cost, null, u.temp))), h('span', { class: 'cnt' }, s.active + ' traits')]))));
+    box.append(card);
+  });
+}
+function run() {
+  $('#status').textContent = 'Searching boards...';
+  setTimeout(() => {
+    const t0 = performance.now();
+    const emblems = Object.assign({}, state.emblems);
+    const opts = { level: state.level, objective: state.objective, maxCost: $('#allow5').checked ? 5 : 4, include: state.include.slice(), exclude: state.exclude.slice(), khazix: $('#khazix').checked, restarts: 40, topN: 8, seed: 11 };
+    let results;
+    try { results = solve(emblems, opts); } catch (e) { $('#status').textContent = 'Could not search: ' + e.message; return; }
+    const ms = Math.round(performance.now() - t0);
+    renderResults(results, emblems, ms);
+    $('#status').textContent = 'Done in ' + ms + ' ms.';
+  }, 20);
+}
+(function init() {
+  $('#setinfo').textContent = 'Set ' + DATA.set + ' ' + DATA.set_name + ', ' + UNITS.length + ' units, ' + EMBLEM_TRAITS.length + ' emblems. Data from Riot game files, built ' + (DATA.built_at || '').slice(0, 10) + '.';
+  $('#unitList').replaceChildren(...UNITS.map(u => h('option', { value: u.name })));
+  state.emblems = { Blossom: 1, Fae: 1 };
+  renderEmblems(); renderSegs(); renderLists(); bindInput('#incInput', state.include); bindInput('#excInput', state.exclude);
+  $('#run').addEventListener('click', run);
+  run();
+})();
+</script>
