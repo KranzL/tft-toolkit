@@ -4,7 +4,7 @@ TFT.tactics = (function () {
   const RANK_GROUPS = { master: 0, diamond: 1, emerald: 2, platinum: 3, gm: 4 };
   const RANK_LABELS = { 0: 'Master+', 1: 'Diamond+', 2: 'Emerald+', 3: 'Platinum+', 4: 'Grandmaster+' };
   const PAGE_PROXY = 'api/ttpage/';
-  const API_PROXY = 'api/tt/team-compositions/';
+  const API = 'https://api.tft.tools/team-compositions/';
   const GENERAL = 'https://d3.tft.tools/stats2/general/1100/';
   const cacheGet = (k, ttl) => { try { const v = JSON.parse(localStorage.getItem(k) || 'null'); if (v && Date.now() - v.t < ttl) return v.d; } catch (e) {} return null; };
   const cacheSet = (k, d) => { try { localStorage.setItem(k, JSON.stringify({ t: Date.now(), d })); } catch (e) {} };
@@ -23,7 +23,7 @@ TFT.tactics = (function () {
     return out;
   }
   async function fetchComps(rankGroup, patchId) {
-    const res = await fetch(API_PROXY + rankGroup + '/' + patchId);
+    const res = await fetch(API + rankGroup + '/' + patchId);
     if (!res.ok) throw new Error('tactics.tools comps ' + res.status);
     return res.json();
   }
