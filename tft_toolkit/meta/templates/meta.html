@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <title>Enchanted Wilds Meta Watch</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -272,7 +273,7 @@ function renderChina(main) {
         h('td', null, h('strong', null, c.name), h('div', { class: 'muted', style: 'font-size:12px' }, c.sub_traits.slice(0, 4).map(([t, n]) => t + ' ' + n).join(', '))),
         h('td', null, h('div', { class: 'chips' }, c.units.map(u => unitChip(u)))),
         h('td', null, c.carry ? h('div', null, unitChip(c.carry), h('div', { class: 'chips', style: 'margin-top:4px' }, c.carry_items.map(i => h('span', { class: 'chip' }, i)))) : '', c.assist.length ? h('div', { style: 'margin-top:6px' }, unitChip(c.assist[0]), h('div', { class: 'chips', style: 'margin-top:4px' }, c.assist_items.map(i => h('span', { class: 'chip' }, i)))) : ''),
-        h('td', { class: 'num' }, c.raw.use_num || ''), h('td', { class: 'num' }, placeTag(c.avg_place)), h('td', { class: 'num' }, pct(c.top4_rate, 0)), h('td', { class: 'num' }, pct(c.win_rate, 0))))))));
+        h('td', { class: 'num' }, c.raw.use_num || ''), h('td', { class: 'num' }, placeTag(c.avg_place)), h('td', { class: 'num' }, pct(c.top4_rate, 0)), h('td', { class: 'num' }, pct(c.win_rate, 0)))))))));
   const traitRows = cn.traits.rows.map(r => ({ name: r.name, l: r.levels[0] })).filter(r => r.l && r.l.play_rate >= 0.003).sort((a, b) => a.l.avg_place - b.l.avg_place);
   main.append(h('section', { class: 'grid2' },
     h('div', { class: 'card' }, h('h3', null, 'Trait packages, best placement'), h('ul', { class: 'plain' }, traitRows.slice(0, 14).map(r => h('li', null, placeTag(r.l.avg_place), ' ' + r.name, h('span', { class: 'muted' }, ' ' + pct(r.l.play_rate) + ' of boards'))))),
@@ -298,7 +299,7 @@ function renderLadder(main) {
   }
   main.append(h('section', null, h('h2', null, 'Boards from Master+ ladders, last ' + riot.days + ' days'), h('p', { class: 'lead' }, riot.boards.toLocaleString() + ' boards from ' + riot.matches.toLocaleString() + ' matches played by the top of each tracked ladder.'),
     h('div', { class: 'tablewrap' }, h('table', null, h('thead', null, h('tr', null, h('th', null, 'Archetype'), h('th', null, 'Common units'), h('th', { class: 'num' }, 'Boards'), h('th', { class: 'num' }, 'Share'), h('th', { class: 'num' }, 'Place'), h('th', { class: 'num' }, 'Top 4'), h('th', { class: 'num' }, 'Win'), h('th', null, 'Daily share'))),
-      h('tbody', null, riot.comps.map(c => h('tr', null, h('td', null, h('strong', null, c.name), h('div', { class: 'muted', style: 'font-size:12px' }, 'carries: ' + c.carries.map(x => x[0]).join(', '))), h('td', null, h('div', { class: 'chips' }, c.units.slice(0, 9).map(u => unitChip(u.name, ' ' + pct(u.rate, 0))))), h('td', { class: 'num' }, c.count), h('td', { class: 'num' }, pct(c.share)), h('td', { class: 'num' }, placeTag(c.avg_place)), h('td', { class: 'num' }, pct(c.top4_rate, 0)), h('td', { class: 'num' }, pct(c.win_rate, 0)), h('td', { style: 'color: var(--accent)' }, spark(c.trend, 'share'))))))));
+      h('tbody', null, riot.comps.map(c => h('tr', null, h('td', null, h('strong', null, c.name), h('div', { class: 'muted', style: 'font-size:12px' }, 'carries: ' + c.carries.map(x => x[0]).join(', '))), h('td', null, h('div', { class: 'chips' }, c.units.slice(0, 9).map(u => unitChip(u.name, ' ' + pct(u.rate, 0))))), h('td', { class: 'num' }, c.count), h('td', { class: 'num' }, pct(c.share)), h('td', { class: 'num' }, placeTag(c.avg_place)), h('td', { class: 'num' }, pct(c.top4_rate, 0)), h('td', { class: 'num' }, pct(c.win_rate, 0)), h('td', { style: 'color: var(--accent)' }, spark(c.trend, 'share')))))))));
   const byPlatform = {};
   for (const p of riot.players) (byPlatform[p.platform] = byPlatform[p.platform] || []).push(p);
   main.append(h('section', null, h('h2', null, 'Top players and what they are playing'), h('div', { class: 'grid2' }, Object.entries(byPlatform).map(([plat, rows]) => h('div', { class: 'card' }, h('h3', null, LABELS[plat] || plat),
