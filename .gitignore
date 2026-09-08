@@ -5,3 +5,4 @@ data/meta/cache/
 data/meta/*.sqlite
 data/meta/snapshot-*.json
 .playwright-mcp/
+.vercel

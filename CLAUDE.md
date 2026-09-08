@@ -28,7 +28,7 @@ Static site, zero backend, zero build step for the meta page. The planner page i
 - Set data: `https://raw.communitydragon.org/latest/cdragon/tft/en_us.json`, set mutator `TFTSet18`. Rebuild with `python3 scripts/build_set_data.py` after each patch, then `python3 scripts/build_planner_page.py`.
 - tactics.tools: `api.tft.tools/team-compositions/{rankGroup}/{patchId}` and `d3.tft.tools/stats2/general/1100/{patchId}/{rankGroup}`. Both send CORS `*`. Rank groups: 0 Master+, 1 Diamond+, 2 Emerald+, 3 Platinum+, 4 Grandmaster+. The patch id comes from `__NEXT_DATA__` on the team-compositions page, which needs the Vercel proxy. Region distribution values are boards per game, divide by 8 for board share.
 - Tencent: POST `https://mlol.qt.qq.com/go/exploit/proxy` with `req_alias` in `tft_lineup_group_list`, `tft_hero_ranking`, `tft_trait_strength_trend`; `tier_part` 0 is Master+, `time_type` v is the current patch, d is today. Id maps come from `versionconfig.json` on game.gtimg.cn. CORS reflects the origin.
-- Riot API: only through `/api/riot/<host>/`, key in localStorage, never committed. Development keys: 20 requests per second, 100 per two minutes, 24 hour expiry. China is not on the Riot API.
+- Riot API: only through `/api/riot/<host>/`, key in localStorage, never committed. The key travels as the `api_key` query parameter because Vercel rewrites do not forward the `X-Riot-Token` header. Development keys: 20 requests per second, 100 per two minutes, 24 hour expiry. China is not on the Riot API.
 
 ## Solver rules (planner)
 

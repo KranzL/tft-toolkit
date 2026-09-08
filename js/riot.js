@@ -30,13 +30,14 @@ TFT.riot = (function () {
     constructor(key, log) { this.key = key; this.log = log || (() => {}); this.limiters = {}; this.requests = 0; this.stopped = false; }
     limiter(host) { return this.limiters[host] || (this.limiters[host] = new RateLimiter()); }
     async get(host, path, params) {
-      let url = 'api/riot/' + host + path;
-      if (params) url += '?' + new URLSearchParams(params).toString();
+      const qs = new URLSearchParams(params || {});
+      qs.set('api_key', this.key);
+      const url = 'api/riot/' + host + path + '?' + qs.toString();
       const lim = this.limiter(host);
       for (let attempt = 0; attempt < 6; attempt++) {
         if (this.stopped) throw new Error('stopped');
         await lim.wait();
-        const res = await fetch(url, { headers: { 'X-Riot-Token': this.key } });
+        const res = await fetch(url);
         this.requests += 1;
         lim.updateFromHeader(res.headers.get('x-app-rate-limit'));
         if (res.status === 200) return res.json();
