@@ -3,7 +3,7 @@ TFT.tactics = (function () {
   const BOARDS_PER_GAME = 8;
   const RANK_GROUPS = { master: 0, diamond: 1, emerald: 2, platinum: 3, gm: 4 };
   const RANK_LABELS = { 0: 'Master+', 1: 'Diamond+', 2: 'Emerald+', 3: 'Platinum+', 4: 'Grandmaster+' };
-  const PAGE_PROXY = 'api/ttpage/';
+  const PAGE_PROXY = 'api/ttpage';
   const API = 'https://api.tft.tools/team-compositions/';
   const GENERAL = 'https://d3.tft.tools/stats2/general/1100/';
   const cacheGet = (k, ttl) => { try { const v = JSON.parse(localStorage.getItem(k) || 'null'); if (v && Date.now() - v.t < ttl) return v.d; } catch (e) {} return null; };

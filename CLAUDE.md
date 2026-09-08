@@ -18,7 +18,7 @@ Static site, zero backend, zero build step for the meta page. The planner page i
 | js/dashboard.js | Rendering and loading flow for meta.html |
 | data/set18.json | Units, traits, emblems, Lux forms and item names built from Community Dragon |
 | data/meta/latest.json | Snapshot written by the Python tracker; the web page uses it only as a fallback when a live source fails |
-| vercel.json | Rewrites: `/api/ttpage/` proxies the tactics.tools page (no CORS) to read the current patch id; `/api/riot/<host>/*` proxies each Riot API host so the browser can send its own key |
+| vercel.json | Rewrites: `/api/ttpage` proxies the tactics.tools page (no CORS) to read the current patch id; `/api/riot/<host>/*` proxies each Riot API host so the browser can send its own key |
 | tft_toolkit/ | Python versions of both tools (solver, CLI, sources, sqlite store, analysis) |
 | scripts/ | Data builders: set data from Community Dragon, planner page, analysis tables |
 | docs/set18-analysis.md | Write-up of every unit and trait plus a meta snapshot |

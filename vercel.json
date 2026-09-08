@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/api/ttpage",
+      "destination": "https://tactics.tools/team-compositions"
+    },
+    {
       "source": "/api/ttpage/",
       "destination": "https://tactics.tools/team-compositions"
     },
