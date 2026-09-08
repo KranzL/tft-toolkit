@@ -8,9 +8,9 @@ from tft_toolkit.meta import report
 
 def cmd_refresh(args):
     snap = report.build_snapshot(rank=args.rank, include_riot=not args.no_riot, riot_days=args.days)
-    out = report.write_outputs(snap)
+    report.write_outputs(snap)
     report.print_summary(snap, region=args.region)
-    print(f"\nDashboard: file://{out}")
+    print("\nThe web dashboard (meta.html) loads live data itself and uses this snapshot as its fallback.")
 
 
 def cmd_show(args):

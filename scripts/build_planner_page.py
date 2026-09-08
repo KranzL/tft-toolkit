@@ -3,7 +3,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 TEMPLATE = ROOT / "tft_toolkit" / "planner" / "templates" / "planner.html"
-OUT = ROOT / "web" / "planner.html"
+OUT = ROOT / "planner.html"
 
 
 def main():

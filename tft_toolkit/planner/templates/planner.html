@@ -1,5 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 <meta charset="utf-8">
-<title>Wilds Emblem Planner</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emblem Planner, TFT Toolkit</title>
+<meta name="description" content="Pick your Set 18 emblems and get the boards and level path that hit the most trait breakpoints.">
+<meta property="og:title" content="TFT Emblem Planner">
+<meta property="og:description" content="Pick your Set 18 emblems and get the boards and level path that hit the most trait breakpoints.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lkranz.com/tft/planner.html">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 :root {
@@ -69,8 +80,13 @@ label.inline { display: flex; align-items: center; gap: 8px; margin: 4px 0; colo
 .status { color: var(--muted); font-size: 12px; margin-top: 8px; min-height: 16px; }
 details summary { cursor: pointer; color: var(--muted); font-size: 12px; margin-top: 8px; }
 [hidden] { display: none !important; }
+.topnav { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+.topnav a { margin-right: 12px; color: var(--wisp); }
 </style>
+</head>
+<body>
 <div class="wrap">
+  <div class="topnav"><a href="./">TFT Toolkit</a><span style="margin-right:12px">Emblem Planner</span><a href="meta.html">Meta Watch</a></div>
   <header>
     <div>
       <h1>Wilds Emblem Planner</h1>
@@ -307,3 +323,5 @@ function run() {
   run();
 })();
 </script>
+</body>
+</html>

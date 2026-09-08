@@ -5,5 +5,3 @@ data/meta/cache/
 data/meta/*.sqlite
 data/meta/snapshot-*.json
 .playwright-mcp/
-web/meta.html
-data/meta/latest.json

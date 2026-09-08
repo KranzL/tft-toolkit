@@ -1,0 +1,104 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/ttpage/",
+      "destination": "https://tactics.tools/team-compositions"
+    },
+    {
+      "source": "/api/riot/na1/:path*",
+      "destination": "https://na1.api.riotgames.com/:path*"
+    },
+    {
+      "source": "/api/riot/br1/:path*",
+      "destination": "https://br1.api.riotgames.com/:path*"
+    },
+    {
+      "source": "/api/riot/la1/:path*",
+      "destination": "https://la1.api.riotgames.com/:path*"
+    },
+    {
+      "source": "/api/riot/la2/:path*",
+      "destination": "https://la2.api.riotgames.com/:path*"
+    },
+    {
+      "source": "/api/riot/euw1/:path*",
+      "destination": "https://euw1.api.riotgames.com/:path*"
+    },
+    {
+      "source": "/api/riot/eun1/:path*",
+      "destination": "https://eun1.api.riotgames.com/:path*"
+    },
+    {
+      "source": "/api/riot/tr1/:path*",
+      "destination": "https://tr1.api.riotgames.com/:path*"
+    },
+    {
+      "source": "/api/riot/ru/:path*",
+      "destination": "https://ru.api.riotgames.com/:path*"
+    },
+    {
+      "source": "/api/riot/me1/:path*",
+      "destination": "https://me1.api.riotgames.com/:path*"
+    },
+    {
+      "source": "/api/riot/kr/:path*",
+      "destination": "https://kr.api.riotgames.com/:path*"
+    },
+    {
+      "source": "/api/riot/jp1/:path*",
+      "destination": "https://jp1.api.riotgames.com/:path*"
+    },
+    {
+      "source": "/api/riot/oc1/:path*",
+      "destination": "https://oc1.api.riotgames.com/:path*"
+    },
+    {
+      "source": "/api/riot/sg2/:path*",
+      "destination": "https://sg2.api.riotgames.com/:path*"
+    },
+    {
+      "source": "/api/riot/tw2/:path*",
+      "destination": "https://tw2.api.riotgames.com/:path*"
+    },
+    {
+      "source": "/api/riot/vn2/:path*",
+      "destination": "https://vn2.api.riotgames.com/:path*"
+    },
+    {
+      "source": "/api/riot/americas/:path*",
+      "destination": "https://americas.api.riotgames.com/:path*"
+    },
+    {
+      "source": "/api/riot/europe/:path*",
+      "destination": "https://europe.api.riotgames.com/:path*"
+    },
+    {
+      "source": "/api/riot/asia/:path*",
+      "destination": "https://asia.api.riotgames.com/:path*"
+    },
+    {
+      "source": "/api/riot/sea/:path*",
+      "destination": "https://sea.api.riotgames.com/:path*"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/data/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=600"
+        }
+      ]
+    },
+    {
+      "source": "/js/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300"
+        }
+      ]
+    }
+  ]
+}

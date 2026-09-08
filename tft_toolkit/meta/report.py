@@ -9,8 +9,6 @@ from tft_toolkit.meta.store import Store
 
 ROOT = Path(__file__).resolve().parents[2]
 SNAPSHOT_DIR = ROOT / "data" / "meta"
-WEB_DIR = ROOT / "web"
-TEMPLATE = Path(__file__).resolve().parent / "templates" / "meta.html"
 
 
 def build_snapshot(rank="master", include_riot=True, riot_days=7, log=print):
@@ -70,7 +68,6 @@ def trend_delta(trend):
 
 def write_outputs(snap, log=print):
     SNAPSHOT_DIR.mkdir(parents=True, exist_ok=True)
-    WEB_DIR.mkdir(parents=True, exist_ok=True)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M")
     latest = SNAPSHOT_DIR / "latest.json"
     dated = SNAPSHOT_DIR / f"snapshot-{stamp}.json"
@@ -78,11 +75,8 @@ def write_outputs(snap, log=print):
         c["trend_delta"] = trend_delta(c["trend"])
     json.dump(snap, open(latest, "w"), ensure_ascii=False)
     json.dump(snap, open(dated, "w"), ensure_ascii=False)
-    html = TEMPLATE.read_text().replace("__DATA__", json.dumps(snap, ensure_ascii=False).replace("</", "<\\/"))
-    out = WEB_DIR / "meta.html"
-    out.write_text(html)
-    log(f"wrote {latest} and {out}")
-    return out
+    log(f"wrote {latest}")
+    return latest
 
 
 def print_summary(snap, region=None, limit=12):

@@ -1,0 +1,10 @@
+tft_toolkit/
+scripts/
+tests/
+docs/
+requirements-dev.txt
+data/meta/cache/
+data/meta/snapshot-*.json
+data/meta/*.sqlite
+.gitignore
+CLAUDE.md
