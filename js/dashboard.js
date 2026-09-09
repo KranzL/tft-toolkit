@@ -207,7 +207,7 @@ window.TFT = window.TFT || {};
           h('td', { class: 'num' }, pct(r.homeShare)), h('td', { class: 'num' }, pct(r.elsewhereShare)), h('td', { class: 'num' }, r.ratio === Infinity ? 'new' : r.ratio.toFixed(1) + 'x'), h('td', { class: 'num' }, r.regionsAbove + ' of ' + r.regionsChecked),
           h('td', null, h('div', { class: 'chips' }, r.top.map(([reg, v]) => h('span', { class: 'chip' }, (LABELS[reg] || reg) + ' ' + pct(v.share))))),
           h('td', { class: 'num' }, placeTag(r.elsewherePlace)), h('td', { class: 'num' }, r.homePlace != null && r.homeShare > 0 ? placeTag(r.homePlace) : h('span', { class: 'muted' }, 'no data')),
-          h('td', { style: 'color: var(--accent)' }, spark(r.comp.trend, 'share'))))))))
+          h('td', { style: 'color: var(--accent)' }, spark(r.comp.trend, 'share')))))))
       : h('p', { class: 'note' }, 'Nothing clears the ' + state.minRatio + 'x bar right now. The Master+ meta is nearly the same in every region this patch. Lower the bar or switch the home region.')));
     const cn = TFT.insights.chinaOnly(SNAP.tencent, SNAP.tactics);
     if (SNAP.tencent) main.append(h('section', null, h('h2', null, 'Only on the China server'),
