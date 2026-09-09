@@ -224,49 +224,50 @@ Origin and class pairs that appear on more than one unit:
 - Elderwood + Brawler: Alistar, Gnar
 - Riftbeast + Ravager: Murkwolf, Brambleback
 
-## Meta snapshot (Master+, patch 18.1d, 32,327 games, generated 2026-09-08T05:25 UTC)
+## Meta snapshot (Master+, patch 18.1d, 40,148 games, generated 2026-09-09T02:42 UTC)
 
 | Comp | Share | Place | Top 4 | Win | 7-day change | Board |
 |---|---|---|---|---|---|---|
-| Flora Fatalis Malphite & Soraka | 12.5% | 4.61 | 48% | 8% | +1.3 pts | Yorick, Azir, Fiddlesticks, Amumu, Malphite, Soraka, Zyra, Kennen |
-| Primal Nidalee & Sivir | 6.4% | 4.70 | 46% | 5% | +2.1 pts | Cinderling, Rek'Sai, Kog'Maw, Krug, Sentinel, Malphite, Nidalee, Sivir |
-| Solar Kayle & Xayah | 5.5% | 4.48 | 51% | 18% | -1.2 pts | Leona, Ornn, Rakan, Xayah, Kayle, Sejuani, Hecarim, Aphelios |
-| Blossom Master Yi & Vi | 5.3% | 3.69 | 64% | 22% | +1.2 pts | Yorick, Kog'Maw, Krug, Master Yi, Rengar, Vi, Nidalee, Sett |
-| Riftbeast Sentinel & Aphelios | 4.8% | 4.74 | 44% | 9% | -0.9 pts | Diana, Hecarim, Mama Beak, Sentinel, Aphelios, Brambleback, Zyra, Taric |
-| Blossom Ahri & Morgana | 3.7% | 4.60 | 48% | 9% | -0.1 pts | Karma, Pebbles, Krug, Ahri, Sentinel, Morgana, Sett, Taric |
-| Solar Akali & Camille | 2.7% | 4.48 | 53% | 11% | +2.1 pts | Akali, Camille, Leona, Ornn, Varus, Kayle, Sejuani, Amumu |
-| Flora Fatalis Cassiopeia & Fiddlesticks | 2.7% | 4.44 | 52% | 11% | -0.6 pts | Leona, Ornn, Shen, Cassiopeia, Fiddlesticks, Rammus, Lillia, Soraka |
-| Riftbeast Krug & Pebbles | 1.6% | 4.40 | 53% | 9% | +0.2 pts | Cinderling, Pebbles, Murkwolf, Scuttlecrab, Krug, Sentinel, Brambleback, Gnar |
-| Fae Tristana & Rengar | 1.3% | 4.60 | 46% | 18% | -0.1 pts | Kobuko, Rakan, Rammus, Rengar, Tristana, Vi, Lillia, Sivir |
-| Sprykin Veigar & Rek'Sai | 1.3% | 4.54 | 48% | 10% | +0.0 pts | Kobuko, Rek'Sai, Veigar, Teemo, Fiddlesticks, Rammus, Sett, Gnar |
-| Inferno Ezreal & Draven | 1.2% | 4.31 | 51% | 22% | -0.0 pts | Alistar, Amumu, Ezreal, Draven, Gnar, Ivern, Kennen, Maokai |
-| Fae Aphelios & Lillia | 1.0% | 5.05 | 40% | 8% | +0.1 pts | Ornn, Xayah, Alistar, Diana, Hecarim, Aphelios, Lillia, Gnar |
+| Flora Fatalis Malphite & Soraka | 12.6% | 4.60 | 49% | 8% | +0.9 pts | Yorick, Azir, Fiddlesticks, Amumu, Malphite, Soraka, Zyra, Kennen |
+| Primal Nidalee & Sivir | 6.6% | 4.66 | 47% | 5% | +2.0 pts | Cinderling, Rek'Sai, Kog'Maw, Krug, Sentinel, Malphite, Nidalee, Sivir |
+| Blossom Master Yi & Vi | 5.7% | 3.68 | 65% | 22% | +1.3 pts | Yorick, Kog'Maw, Krug, Master Yi, Rengar, Vi, Nidalee, Sett |
+| Solar Kayle & Xayah | 5.3% | 4.51 | 50% | 18% | -1.6 pts | Leona, Ornn, Rakan, Xayah, Kayle, Sejuani, Hecarim, Aphelios |
+| Riftbeast Sentinel & Aphelios | 3.8% | 4.59 | 48% | 12% | -0.3 pts | Diana, Hecarim, Mama Beak, Sentinel, Aphelios, Brambleback, Zyra, Taric |
+| Blossom Ahri & Morgana | 3.8% | 4.54 | 49% | 9% | -0.1 pts | Karma, Pebbles, Krug, Ahri, Sentinel, Morgana, Sett, Taric |
+| Solar Akali & Camille | 2.9% | 4.49 | 53% | 10% | +2.3 pts | Akali, Camille, Leona, Ornn, Varus, Kayle, Sejuani, Amumu |
+| Flora Fatalis Cassiopeia & Fiddlesticks | 2.7% | 4.46 | 52% | 10% | -0.6 pts | Leona, Ornn, Shen, Cassiopeia, Fiddlesticks, Rammus, Lillia, Soraka |
+| Riftbeast Aphelios & Brambleback | 1.8% | 4.85 | 44% | 6% | -0.3 pts | Diana, Hecarim, Mama Beak, Sentinel, Aphelios, Brambleback, Morgana, Taric |
+| Riftbeast Pebbles & Cinderling | 1.7% | 4.40 | 52% | 9% | -0.1 pts | Cinderling, Pebbles, Murkwolf, Scuttlecrab, Krug, Sentinel, Brambleback, Gnar |
+| Fae Tristana & Rammus | 1.5% | 4.54 | 46% | 18% | -0.0 pts | Kobuko, Rakan, Rammus, Rengar, Tristana, Vi, Lillia, Sivir |
+| Sprykin Veigar & Rek'Sai | 1.3% | 4.50 | 49% | 10% | -0.2 pts | Kobuko, Rek'Sai, Veigar, Teemo, Fiddlesticks, Rammus, Sett, Gnar |
+| Inferno Ezreal & Draven | 1.2% | 4.33 | 50% | 22% | -0.2 pts | Alistar, Amumu, Ezreal, Draven, Gnar, Ivern, Kennen, Maokai |
+| Fae Aphelios & Lillia | 1.0% | 4.98 | 40% | 8% | +0.0 pts | Ornn, Xayah, Alistar, Diana, Hecarim, Aphelios, Lillia, Gnar |
 
 Region leaders (highest play share inside each region):
 
-- NA: Flora Fatalis Malphite & Soraka (13.1% of boards, place 4.86)
-- EUW: Flora Fatalis Malphite & Soraka (12.4% of boards, place 4.63)
-- EUNE: Flora Fatalis Malphite & Soraka (15.4% of boards, place 4.85)
-- KR: Flora Fatalis Malphite & Soraka (12.7% of boards, place 4.66)
-- JP: Flora Fatalis Malphite & Soraka (12.2% of boards, place 4.64)
-- BR: Flora Fatalis Malphite & Soraka (12.3% of boards, place 4.61)
-- LAN: Flora Fatalis Malphite & Soraka (16.3% of boards, place 3.71)
-- LAS: Primal Nidalee & Sivir (8.5% of boards, place 3.90)
-- OCE: Flora Fatalis Malphite & Soraka (14.8% of boards, place 4.79)
-- TR: Flora Fatalis Malphite & Soraka (17.1% of boards, place 4.72)
-- TW: Flora Fatalis Malphite & Soraka (4.5% of boards, place 5.71)
-- VN: Flora Fatalis Malphite & Soraka (4.3% of boards, place 5.41)
-- SEA: Flora Fatalis Malphite & Soraka (3.9% of boards, place 5.72)
+- NA: Flora Fatalis Malphite & Soraka (13.0% of boards, place 4.86)
+- EUW: Flora Fatalis Malphite & Soraka (12.3% of boards, place 4.54)
+- EUNE: Flora Fatalis Malphite & Soraka (17.1% of boards, place 4.86)
+- KR: Flora Fatalis Malphite & Soraka (12.7% of boards, place 4.65)
+- JP: Flora Fatalis Malphite & Soraka (11.7% of boards, place 4.57)
+- BR: Flora Fatalis Malphite & Soraka (13.3% of boards, place 4.71)
+- LAN: Flora Fatalis Malphite & Soraka (16.8% of boards, place 4.04)
+- LAS: Flora Fatalis Malphite & Soraka (7.9% of boards, place 4.70)
+- OCE: Flora Fatalis Malphite & Soraka (13.9% of boards, place 4.69)
+- TR: Flora Fatalis Malphite & Soraka (15.5% of boards, place 4.81)
+- TW: Flora Fatalis Malphite & Soraka (4.7% of boards, place 5.91)
+- VN: Flora Fatalis Malphite & Soraka (4.2% of boards, place 5.37)
+- SEA: Flora Fatalis Malphite & Soraka (4.3% of boards, place 5.61)
 
-China Master+ (Tencent, patch 16.17, 20260907):
+China Master+ (Tencent, patch 16.17, 20260908):
 
 | Comp | Games | Place | Top 4 | Win | Board |
 |---|---|---|---|---|---|
-| Elderwood 3 + Solar 3 (Kayle) | 178 | 2.00 | 93% | 47% | Leona, Ornn, Rakan, Xayah, Kayle, LeBlanc, Sejuani, Hecarim |
-| Elderwood 3 + Solar 3 (Kayle) | 440 | 2.00 | 92% | 56% | Leona, Ornn, Rakan, Xayah, Elise, Kayle, LeBlanc, Sejuani |
-| Blossom 3 + Invoker 3 (Ahri) | 130 | 2.50 | 92% | 25% | Pebbles, Krug, Ahri, Morgana, Sett, Sentinel, Alune, Ashe, Taric |
-| Brawler 4 + Adaptor 3 (Master Yi) | 238 | 2.50 | 90% | 27% | Yorick, Master Yi, Kog'Maw, Krug, Vi, Sett, Nidalee, Gnar |
-| Executioner 3 + Summoner 3 (Malphite) | 453 | 2.50 | 91% | 27% | Yorick, Azir, Fiddlesticks, Malphite, Soraka, Zyra, Amumu, Alune, Kennen |
-| Executioner 3 + Summoner 3 (Malphite) | 156 | 2.70 | 83% | 24% | Yorick, Azir, Fiddlesticks, Malphite, Soraka, Zyra, Amumu, Ivern, Kennen |
-| Executioner 4 + Summoner 3 (Malphite) | 325 | 2.80 | 86% | 25% | Yorick, Azir, Fiddlesticks, Ezreal, Malphite, Soraka, Zyra, Amumu, Kennen |
-| Riftbeast 3 (Elder Dragon) | 1818 | 3.70 | 62% | 29% | Amumu, Sentinel, Elder Dragon, Ivern, Kennen, Maokai, Draven, Taric |
+| Elderwood 3 + Solar 3 (Kayle) | 220 | 2.00 | 94% | 46% | Leona, Ornn, Rakan, Xayah, Kayle, LeBlanc, Sejuani, Hecarim |
+| Elderwood 3 + Solar 3 (Kayle) | 547 | 2.00 | 92% | 56% | Leona, Ornn, Rakan, Xayah, Elise, Kayle, LeBlanc, Sejuani |
+| Defender 6 (Rengar) | 119 | 2.30 | 91% | 34% | Ornn, Shen, Cassiopeia, Rammus, Rengar, Fiddlesticks, Lillia, Soraka |
+| Blossom 3 + Invoker 3 (Ahri) | 141 | 2.50 | 92% | 27% | Pebbles, Krug, Ahri, Morgana, Sett, Sentinel, Alune, Ashe, Taric |
+| Executioner 3 + Summoner 3 (Malphite) | 577 | 2.50 | 91% | 27% | Yorick, Azir, Fiddlesticks, Malphite, Soraka, Zyra, Amumu, Alune, Kennen |
+| Brawler 4 + Adaptor 3 (Master Yi) | 289 | 2.60 | 89% | 27% | Yorick, Master Yi, Kog'Maw, Krug, Vi, Sett, Nidalee, Gnar |
+| Executioner 4 + Summoner 3 (Zyra) | 181 | 2.60 | 88% | 30% | Yorick, Azir, Fiddlesticks, Lillia, Malphite, Soraka, Zyra, Amumu, Kennen |
+| Executioner 3 + Summoner 3 (Malphite) | 190 | 2.80 | 84% | 23% | Yorick, Azir, Fiddlesticks, Malphite, Soraka, Zyra, Amumu, Ivern, Kennen |
