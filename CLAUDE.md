@@ -14,6 +14,7 @@ Static site, zero backend, zero build step for the meta page. The planner page i
 | js/names.js | Maps Riot ids (units, traits, items, Lux forms) to names |
 | js/tactics.js | tactics.tools API fetch and normalization (comps, region and daily splits, top players, unit and trait stats) |
 | js/tencent.js | Tencent China server data (Master+ comps, units, trait strength, curated pro lineups) |
+| js/insights.js | Cross-region comparisons: comps other regions play more than the home region, China-only boards |
 | js/riot.js | Browser Riot API client with rate limiting, ladder sampler, localStorage store, board analysis |
 | js/dashboard.js | Rendering and loading flow for meta.html |
 | data/set18.json | Units, traits, emblems, Lux forms and item names built from Community Dragon |

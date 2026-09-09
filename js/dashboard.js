@@ -1,7 +1,7 @@
 window.TFT = window.TFT || {};
 (function () {
   const LABELS = Object.assign({}, TFT.riot.PLATFORM_LABELS, { cn: 'CN' });
-  const state = { tab: 'comps', region: 'all', small: false, sort: 'share', open: new Set(), rank: localStorage.getItem('tft_rank') || 'master', running: false };
+  const state = { tab: 'comps', region: 'all', small: false, sort: 'share', open: new Set(), rank: localStorage.getItem('tft_rank') || 'master', running: false, home: localStorage.getItem('tft_home') || 'na1', minRatio: Number(localStorage.getItem('tft_min_ratio') || 1.3) };
   let SNAP = null, NAMES = null, CLIENT = null;
   const $ = (s, el) => (el || document).querySelector(s);
   const h = (tag, attrs, ...kids) => { const el = document.createElement(tag); for (const [k, v] of Object.entries(attrs || {})) { if (k === 'class') el.className = v; else if (k.startsWith('on')) el.addEventListener(k.slice(2), v); else el.setAttribute(k, v); } for (const kid of kids.flat()) if (kid != null) el.append(kid.nodeType ? kid : document.createTextNode(String(kid))); return el; };
@@ -188,15 +188,45 @@ window.TFT = window.TFT || {};
       h('div', { class: 'tablewrap' }, h('table', null, h('thead', null, h('tr', null, h('th', null, 'Player'), h('th', { class: 'num' }, 'LP'), h('th', { class: 'num' }, 'Recent place'), h('th', null, 'Comps'))),
         h('tbody', null, rows.slice(0, 15).map(p => h('tr', null, h('td', null, p.name), h('td', { class: 'num' }, p.lp), h('td', { class: 'num' }, num(p.avg_place) + ' (' + p.games + ')'), h('td', null, p.comps.map(([c, n]) => c + ' x' + n).join('; '))))))))))));
   }
+  function renderElsewhere(main) {
+    const home = state.home;
+    const homeLabel = LABELS[home] || home;
+    const res = TFT.insights.elsewhere(SNAP.tactics, home, { minRatio: state.minRatio, minElsewhere: 0.006 });
+    const thin = Object.keys(res.coverage).filter(r => !res.regions.includes(r) && r !== home);
+    const controls = h('div', { class: 'row', style: 'display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin: 0 0 12px' },
+      h('label', { class: 'inline' }, 'home region ', h('select', { onchange: e => { state.home = e.target.value; localStorage.setItem('tft_home', state.home); render(); } }, TFT.insights.MAJOR.filter(r => SNAP.tactics.comps.some(c => c.regions[r])).map(r => h('option', { value: r, selected: r === home ? '' : null }, LABELS[r] || r)))),
+      h('label', { class: 'inline' }, 'played at least ', h('select', { onchange: e => { state.minRatio = Number(e.target.value); localStorage.setItem('tft_min_ratio', state.minRatio); render(); } }, [1.2, 1.3, 1.5, 2].map(x => h('option', { value: x, selected: x === state.minRatio ? '' : null }, x + 'x'))), ' more elsewhere'));
+    for (const sel of controls.querySelectorAll('select')) for (const o of sel.options) if (o.hasAttribute('selected')) sel.value = o.value;
+    main.append(h('section', null, h('h2', null, 'What ' + homeLabel + ' is not playing yet'),
+      h('p', { class: 'lead' }, 'Comps with real play share in the other Master+ regions but much less in ' + homeLabel + '. Elsewhere share is the average share across ' + res.regions.map(r => LABELS[r] || r).join(', ') + '. ' + (thin.length ? thin.map(r => LABELS[r] || r).join(', ') + ' are left out because tactics.tools has thin data there. ' : '') + 'A comp that places well elsewhere and is rare at home is usually a lobby you can win before it gets contested.'),
+      controls,
+      res.rows.length ? h('div', { class: 'tablewrap' }, h('table', null, h('thead', null, h('tr', null, h('th', null, 'Comp'), h('th', null, 'Board'), h('th', { class: 'num' }, homeLabel + ' share'), h('th', { class: 'num' }, 'Elsewhere'), h('th', { class: 'num' }, 'Ratio'), h('th', { class: 'num' }, 'Regions ahead'), h('th', null, 'Where most'), h('th', { class: 'num' }, 'Place elsewhere'), h('th', { class: 'num' }, 'Place at home'), h('th', null, '7-day share'))),
+        h('tbody', null, res.rows.map(r => h('tr', null,
+          h('td', null, h('strong', null, r.comp.name), h('div', { class: 'muted', style: 'font-size:12px' }, r.comp.traits.slice(0, 4).map(t => t.name + ' ' + t.tier).join(', '))),
+          h('td', null, h('div', { class: 'chips' }, r.comp.units.map(u => unitChip(u.name)))),
+          h('td', { class: 'num' }, pct(r.homeShare)), h('td', { class: 'num' }, pct(r.elsewhereShare)), h('td', { class: 'num' }, r.ratio === Infinity ? 'new' : r.ratio.toFixed(1) + 'x'), h('td', { class: 'num' }, r.regionsAbove + ' of ' + r.regionsChecked),
+          h('td', null, h('div', { class: 'chips' }, r.top.map(([reg, v]) => h('span', { class: 'chip' }, (LABELS[reg] || reg) + ' ' + pct(v.share))))),
+          h('td', { class: 'num' }, placeTag(r.elsewherePlace)), h('td', { class: 'num' }, r.homePlace != null && r.homeShare > 0 ? placeTag(r.homePlace) : h('span', { class: 'muted' }, 'no data')),
+          h('td', { style: 'color: var(--accent)' }, spark(r.comp.trend, 'share'))))))))
+      : h('p', { class: 'note' }, 'Nothing clears the ' + state.minRatio + 'x bar right now. The Master+ meta is nearly the same in every region this patch. Lower the bar or switch the home region.')));
+    const cn = TFT.insights.chinaOnly(SNAP.tencent, SNAP.tactics);
+    if (SNAP.tencent) main.append(h('section', null, h('h2', null, 'Only on the China server'),
+      h('p', { class: 'lead' }, 'Tencent Master+ boards whose unit list does not match any comp with play on the Riot regions. China is not on the Riot API, so these never show up in Western stat sites.'),
+      cn.length ? h('div', { class: 'grid2' }, cn.map(x => h('div', { class: 'card' }, h('h3', null, x.comp.name), h('div', { class: 'chips' }, x.comp.units.map(u => unitChip(u))),
+        h('div', { style: 'margin-top:8px' }, placeTag(x.comp.avg_place), h('span', { class: 'muted' }, ' average over ' + (x.comp.raw.use_num || '?') + ' games, top 4 ' + pct(x.comp.top4_rate, 0) + ', win ' + pct(x.comp.win_rate, 0))),
+        x.comp.carry ? h('div', { style: 'margin-top:8px' }, h('span', { class: 'muted' }, 'Carry: '), unitChip(x.comp.carry), h('div', { class: 'chips', style: 'margin-top:4px' }, x.comp.carry_items.map(i => h('span', { class: 'chip' }, i)))) : null,
+        h('p', { class: 'muted', style: 'font-size:12px; margin:8px 0 0' }, x.closest ? 'Closest Western comp: ' + x.closest.name + ' (' + Math.round(x.similarity * 100) + '% of units shared)' : 'No Western comp shares its units'))))
+      : h('p', { class: 'note' }, 'Every China Master+ board currently has a close match on the Riot regions.')));
+  }
   function render() {
     if (!SNAP) return;
     const main = $('#main'); main.replaceChildren();
-    const tabs = [['comps', 'Comps'], ['regions', 'Regions'], ['units', 'Units and traits'], ['china', 'China'], ['ladder', 'Ladder players']];
+    const tabs = [['comps', 'Comps'], ['elsewhere', 'Not in ' + (LABELS[state.home] || state.home)], ['regions', 'Regions'], ['units', 'Units and traits'], ['china', 'China'], ['ladder', 'Ladder players']];
     $('#tabs').replaceChildren(...tabs.map(([id, label]) => h('button', { role: 'tab', 'aria-selected': String(state.tab === id), onclick: () => { state.tab = id; render(); } }, label)));
     const regs = ['all', ...regionsAvailable()];
     $('#regionSeg').replaceChildren(...regs.map(r => h('button', { 'aria-pressed': String(state.region === r), onclick: () => { state.region = r; render(); } }, r === 'all' ? 'All regions' : (LABELS[r] || r))));
     $('#regionSeg').hidden = state.tab !== 'comps'; $('#sortSel').parentElement.hidden = state.tab !== 'comps'; $('#showSmall').parentElement.hidden = state.tab !== 'comps';
-    ({ comps: renderComps, regions: renderRegions, units: renderUnitsTraits, china: renderChina, ladder: renderLadder })[state.tab](main);
+    ({ comps: renderComps, elsewhere: renderElsewhere, regions: renderRegions, units: renderUnitsTraits, china: renderChina, ladder: renderLadder })[state.tab](main);
   }
   function renderHeader(sources) {
     const tt = SNAP.tactics;
